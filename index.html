@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../index.css" />
+    <title>Cinema</title>
+</head>
+<body>
+    <header>
+        <div>
+            <nav>
+                <a href="../index.html" class="logo">
+                    <img src="images/Logo.svg" alt="logo">
+                </a>
+                <ul>
+                    <li><a href="pages/prof.html">Профиль</a></li>
+                    <li><a href="#">Билеты</a></li>
+                </ul>
+                <button class="exit">
+                    <img src="images/Exit.svg" alt="log out">
+                    <span class="log__out">Выйти</span>
+                </button>
+            </nav>
+        </div>
+    </header>
+    <main>
+    <div id="cinemaList"></div>
+            
+    </main>
+    <script>
+        const baseUrl = 'https://shift-backend.onrender.com'
+        fetch(`${baseUrl}/cinema/today`)
+          .then(response => {
+            return response.json();
+          })
+          .then(data => {
+              const cinemaListElement = document.getElementById('cinemaList');
+              cinemaListElement.innerHTML = ''; // Очищаем содержимое перед добавлением новых данных
+              data.films.forEach(cinema => {
+              // Создаю элементы карточки фильма
+              const cinemaCard = document.createElement('div');
+              cinemaCard.classList.add('cinema-card');
+
+              const card = document.createElement('div');
+              cinemaCard.classList.add('cards');
+              
+              // Добавляю изображение карточки
+              const img = document.createElement('img');
+              img.src = baseUrl+cinema.img;
+              img.alt = cinema.name;
+              img.classList.add('cinema__logo');
+              cinemaCard.appendChild(img);
+              console.log(cinema.img);
+              
+              // Добавляю ссылку на страницу фильма
+              const filmLink = document.createElement('a');
+              filmLink.textContent = 'Подробнее'; // Текст ссылки
+              filmLink.className = 'card-button';
+              filmLink.href = `pages/film.html?id=${cinema.id}`; // Ссылка на страницу с фильмом
+
+              cinemaCard.appendChild(filmLink);
+
+              // Добавляю карточку к списку
+              cinemaListElement.appendChild(cinemaCard);
+            });
+          })
+          .catch(error => {
+            console.error('Ошибка:', error);
+          });
+      </script>
+</body>
+</html>

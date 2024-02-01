@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Film Details</title>
+</head>
+<body>
+  <div id="filmDetails"></div>
+
+  <script>
+    // Получение filmId из URL страницы
+    const urlParams = new URLSearchParams(window.location.search);
+    const filmId = urlParams.get('id');
+
+    fetch(`https://shift-backend.onrender.com/cinema/film/${filmId}`)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(film => {
+        const data = film.film
+        const filmDetailsElement = document.getElementById('filmDetails');
+        filmDetailsElement.innerHTML = ''; // Очищаем содержимое перед добавлением новых данных
+
+        // Создаем элементы для отображения данных о фильме
+        const title = document.createElement('h2');
+        title.textContent = data.name; // Предполагается, что в данных есть свойство "title"
+        filmDetailsElement.appendChild(title);
+
+        const description = document.createElement('p');
+        description.textContent = data.description; // Предполагается, что в данных есть свойство "description"
+        filmDetailsElement.appendChild(description);
+
+      })
+      .catch(error => {
+        console.error('There was a problem with the fetch operation:', error);
+      });
+  </script>
+</body>
+</html>
