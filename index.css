@@ -59,27 +59,42 @@ header {
 
 /* ===============================MAIN START============================= */
 #cinemaList {
-    display: flex;
+    /* display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: center; */
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    margin: auto;
 }
   
 .cinema-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     border-radius: 12px;
     padding: 16px;
     margin: 10px;
     box-sizing: border-box; 
 }
+
+.text {
+    display: block;
+flex-wrap: wrap;
+}
 .cards {
     border-radius: 8px;
     padding: 16px;
     width: 300px;
-    height: 500px;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
     margin-bottom: 20px;
+    border: #494949 1px solid;
+}
+h2{
+    text-align: center;
+    
 }
 .cinema__logo{
     width: 300px;
@@ -95,8 +110,33 @@ header {
     border: none;
     text-align: center;
     padding-top: 20px;
-    padding-bottom: 25px;
+    padding-bottom: 20px;
 }
 .card__text{
     color: white;
 }
+/* ==========================================FORM========================================= */
+form{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+main{
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+h1{
+    margin-bottom: 25px;
+}
+input{
+    width: 464px;
+    padding: 12px 8px 12px 12px;
+    border: 1px solid rgba(206, 210, 218, 1);
+    border-radius: 8px;
+    gap: 8px;
+    margin-bottom: 15px;
+    margin-top: 10px;
+}
+
+

@@ -12,7 +12,7 @@
         <div>
             <nav>
                 <a href="../index.html" class="logo">
-                    <img src="images/Logo.svg" alt="logo">
+                    <img src="images/Logo2.svg" alt="logo">
                 </a>
                 <ul>
                     <li><a href="pages/prof.html">Профиль</a></li>
@@ -42,9 +42,6 @@
               // Создаю элементы карточки фильма
               const cinemaCard = document.createElement('div');
               cinemaCard.classList.add('cinema-card');
-
-              const card = document.createElement('div');
-              cinemaCard.classList.add('cards');
               
               // Добавляю изображение карточки
               const img = document.createElement('img');
@@ -53,6 +50,13 @@
               img.classList.add('cinema__logo');
               cinemaCard.appendChild(img);
               console.log(cinema.img);
+
+              // Создаем элементы для отображения данных о фильме
+              const title = document.createElement('h2');
+              title.textContent = cinema.name; 
+              cinemaCard.appendChild(title);
+              title.classList.add('text')
+
               
               // Добавляю ссылку на страницу фильма
               const filmLink = document.createElement('a');
