@@ -3,17 +3,38 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link type="image/x-icon" href="../images/fav.svg" rel="shortcut icon">
+  <link rel="stylesheet" href="../style/page.css">
   <title>Film Details</title>
 </head>
 <body>
-  <div id="filmDetails"></div>
-
+<header>
+  <div>
+    <nav>
+      <a href="../index.html" class="logo">
+        <img src="../images/Logo2.svg" alt="logo">
+      </a>
+      <ul>
+        <li><a href="../pages/prof.html">Профиль</a></li>
+        <li><a href="#">Билеты</a></li>
+      </ul>
+      <button class="exit">
+        <img src="../images/Exit.svg" alt="log out">
+        <span class="log__out">Выйти</span>
+        </button>
+    </nav>
+  </div>
+</header>
+  <div id="filmDetails">
+    <div id="filmInfo"></div>
+  </div>
   <script>
+    const baseUrl = 'https://shift-backend.onrender.com'
     // Получение filmId из URL страницы
     const urlParams = new URLSearchParams(window.location.search);
     const filmId = urlParams.get('id');
 
-    fetch(`https://shift-backend.onrender.com/cinema/film/${filmId}`)
+    fetch(`${baseUrl}/cinema/film/${filmId}`)
       .then(response => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
@@ -23,20 +44,31 @@
       .then(film => {
         const data = film.film
         const filmDetailsElement = document.getElementById('filmDetails');
+        const filmInfoElement = document.getElementById('filmInfo');
         filmDetailsElement.innerHTML = ''; // Очищаем содержимое перед добавлением новых данных
+
+        //Добавляю изображение карточки
+        const img = document.createElement('img');
+        img.src = baseUrl+data.img;
+        img.alt = data.name;
+        img.classList.add('cinema__img');
+        filmDetailsElement.appendChild(img);
 
         // Создаем элементы для отображения данных о фильме
         const title = document.createElement('h2');
-        title.textContent = data.name; // Предполагается, что в данных есть свойство "title"
-        filmDetailsElement.appendChild(title);
+        title.textContent = data.name; 
+        filmInfoElement.appendChild(title);
 
         const description = document.createElement('p');
-        description.textContent = data.description; // Предполагается, что в данных есть свойство "description"
-        filmDetailsElement.appendChild(description);
+        description.textContent = data.description; 
+        filmInfoElement.appendChild(description);
 
+        /* filmDetailsElement.appendChild(cinemaCard) */
+        filmDetailsElement.appendChild(filmInfoElement)
+        
       })
       .catch(error => {
-        console.error('There was a problem with the fetch operation:', error);
+        console.error('Ошибка', error);
       });
   </script>
 </body>
